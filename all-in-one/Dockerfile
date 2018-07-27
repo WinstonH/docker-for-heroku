@@ -27,6 +27,7 @@ RUN apt-get update \
 && cd xmr-stak/build \
 && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF .. \
 && make install
+ADD *.txt /home/myuser/xmr-stak/build/bin/
 # Cloud-torrent
 RUN curl https://i.jpillora.com/cloud-torrent! | bash
 # V2Ray
