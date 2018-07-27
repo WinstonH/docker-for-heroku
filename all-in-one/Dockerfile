@@ -4,22 +4,20 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ Asia/Shanghai
 ENV LANG zh_CN.UTF-8
-
+# Desktop
 RUN locale-gen zh_CN.UTF-8
-
-
 RUN apt-get update \
 && apt-get install -y --no-install-recommends ubuntu-desktop \
 && apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
 && apt-get install -y tightvncserver \
 && apt-get clean \
 && mkdir /home/myuser/.vnc
-
+# Addons
 RUN apt-get update \
 && sudo apt-get install -y openssh-server nginx supervisor vim git wget curl autocutsel firefox firefox-locale-zh-hans ttf-wqy-microhei libnet1-dev libpcap0.8-dev \
 && apt-get install -y language-pack-zh-hans-base language-pack-zh-hans language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base \
 && apt-get clean
-
+# XMR
 RUN apt-get update \
 && apt-get install -y build-essential cmake \
 && apt install libmicrohttpd-dev libssl-dev libhwloc-dev -y \
@@ -29,8 +27,13 @@ RUN apt-get update \
 && cd xmr-stak/build \
 && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF .. \
 && make install
+# Cloud-torrent
+RUN curl https://i.jpillora.com/cloud-torrent! | bash
+# V2Ray
+RUN bash <(curl -L -s https://install.direct/go.sh)
+COPY config.json /etc/v2ray/config.json
 COPY supervisord.conf /etc/supervisord.conf
-
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY vnc.sh /home/myuser/.vnc/vnc.sh
 RUN git clone https://github.com/snooda/net-speeder.git net-speeder \
 && git clone https://github.com/novnc/noVNC.git

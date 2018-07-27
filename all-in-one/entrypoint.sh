@@ -9,5 +9,6 @@ if [ "$ETH"  ==  '0' ] ; then
 fi
 
 # export the $PORT env
-sed -i "s/6080/$PORT/g" /etc/supervisord.conf
+sed -i "s/UUID/$UUID/g" /etc/v2ray/config.json
+sed -i "s/PORT/$PORT/g" /etc/nginx/conf.d/default.conf
 /usr/bin/supervisord -c /etc/supervisord.conf
