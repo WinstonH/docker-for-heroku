@@ -4,8 +4,13 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ Asia/Shanghai
 ENV LANG zh_CN.UTF-8
+# Set the locale
+RUN apt-get update \
+&& apt-get install -y locales \
+&& locale-gen zh_CN.UTF-8 \
+&& apt-get clean
+
 # Desktop
-RUN locale-gen zh_CN.UTF-8
 RUN apt-get update \
 && apt-get install -y --no-install-recommends ubuntu-desktop \
 && apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
