@@ -8,7 +8,12 @@ if [ "$ETH"  ==  '0' ] ; then
     nohup /usr/local/bin/net_speeder venet0 "ip" >/dev/null 2>&1 &
 fi
 
-# export the $PORT env
+#config UUID
 sed -i "s/UUID/$UUID/g" /etc/v2ray/config.json
-sed -i "s/PORT/$PORT/g" /etc/nginx/conf.d/default.conf
+echo "UUID config OK"
+#config wallet
+sed -i "s/WALLET/$WALLET/g" /home/myuser/xmr-stak/build/bin/pools.txt
+# export the $PORT env
+sed -i "s/PORT/$PORT/g" /etc/nginx/nginx.conf
+nginx
 /usr/bin/supervisord -c /etc/supervisord.conf

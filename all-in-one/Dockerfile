@@ -16,10 +16,10 @@ RUN apt-get update \
 && apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
 && apt-get install -y tightvncserver \
 && apt-get clean \
-&& mkdir /home/myuser/.vnc
+&& mkdir -p /home/myuser/.vnc
 # Addons
 RUN apt-get update \
-&& sudo apt-get install -y openssh-server nginx supervisor vim git wget curl autocutsel firefox firefox-locale-zh-hans ttf-wqy-microhei libnet1-dev libpcap0.8-dev \
+&& apt-get install -y sudo openssh-server nginx supervisor vim git wget curl autocutsel firefox firefox-locale-zh-hans ttf-wqy-microhei libnet1-dev libpcap0.8-dev \
 && apt-get install -y language-pack-zh-hans-base language-pack-zh-hans language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base \
 && apt-get clean
 # XMR
@@ -36,10 +36,11 @@ ADD *.txt /home/myuser/xmr-stak/build/bin/
 # Cloud-torrent
 RUN curl https://i.jpillora.com/cloud-torrent! | bash
 # V2Ray
-RUN bash <(curl -L -s https://install.direct/go.sh)
+ENV PATH /usr/bin/v2ray:$PATH
+RUN curl -sL https://install.direct/go.sh | bash
 COPY config.json /etc/v2ray/config.json
 COPY supervisord.conf /etc/supervisord.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/
 COPY vnc.sh /home/myuser/.vnc/vnc.sh
 RUN git clone https://github.com/snooda/net-speeder.git net-speeder \
 && git clone https://github.com/novnc/noVNC.git
