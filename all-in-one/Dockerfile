@@ -28,6 +28,7 @@ RUN apt-get update \
 && apt install libmicrohttpd-dev libssl-dev libhwloc-dev -y \
 && cd /home/myuser \
 && git clone https://github.com/fireice-uk/xmr-stak.git \
+&& sed -i 's/2.0/0.0/g' xmr-stak/xmrstak/donate-level.hpp \
 && mkdir xmr-stak/build \
 && cd xmr-stak/build \
 && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF .. \
