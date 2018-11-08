@@ -8,7 +8,7 @@
        "value": "4890bd47-5180-4b1c-9a5d-3ef686543112"
      }
   },
-  "website": "https://github.com/WinstonH/docker-for-heroku",
-  "repository": "https://github.com/WinstonH/docker-for-heroku/tree/master/v2ray",
+  "website": "https://github.com/WinstonH/docker-for-heroku/tree/master/v2ray",
+  "repository": "https://github.com/WinstonH/docker-for-heroku",
   "stack": "container"
  }
